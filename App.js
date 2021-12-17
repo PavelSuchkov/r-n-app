@@ -5,17 +5,31 @@
  * @format
  * @flow strict-local
  */
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, {useState} from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 import { Navbar } from './src/Navbar';
 import { AddTodo } from './src/AddTodo';
+import { Todo } from './src/Todo';
 
 const App = () => {
+
+  const [todos, setTodos] = useState([])
+
+  const addTodo = (title) => {
+     setTodos((prev) => [ {id: Date.now().toString(), title}, ...prev]
+    )
+  }
+
   return (
     <View>
         <Navbar title="List of todo&rsquo;s " />
       <View style={styles.container}>
-        <AddTodo />
+        <AddTodo onSubmit={addTodo}/>
+        <View>
+          {
+            todos.map(td => <Todo todo={td} key={td.id}/>)
+          }
+        </View>
       </View>
     </View>
   );
