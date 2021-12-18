@@ -8,7 +8,6 @@ export const Todo = ({ todo, onRemove }) => {
                       onPress={() => {
                         console.log('Pressed', todo.id);
                       }}
-                      // onLongPress={() => onRemove(todo.id)}>
                       onLongPress={onRemove.bind(this, todo.id)}>
       <View style={styles.todo}>
         <Text>{todo.title}</Text>

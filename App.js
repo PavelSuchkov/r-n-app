@@ -6,16 +6,15 @@
  * @flow strict-local
  */
 import React, { useState } from 'react';
-import { FlatList, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { Navbar } from './src/Navbar';
-import { AddTodo } from './src/AddTodo';
-import { Todo } from './src/Todo';
+import { StyleSheet, View } from 'react-native';
+import { Navbar } from './src/components/Navbar';
+import { MainScreen } from './src/screens/MainScreen';
+import { TodoScreen } from './src/screens/TodoScreen';
 
 const App = () => {
 
-  const [todos, setTodos] = useState([
-    { id: 1, title: 'tetsttss' },
-  ]);
+  const [todos, setTodos] = useState([{ id: 1, title: 'tetsttss' }])
+  const [todId, setTodId] = useState(null)
 
   const addTodo = (title) => {
     setTodos((prev) => [{ id: Date.now().toString(), title }, ...prev],
@@ -23,23 +22,20 @@ const App = () => {
   };
 
   const removeTodo = (id) => {
-    setTodos((prev) => prev.filter( td => td.id !== id) )
+    setTodos((prev) => prev.filter(td => td.id !== id));
+  };
+
+  let content =  <MainScreen todos={todos} addTodo={addTodo} removeTodo={removeTodo} />
+
+  if (todId) {
+    content = <TodoScreen/>
   }
 
   return (
     <View>
       <Navbar title="List of todo&rsquo;s " />
       <View style={styles.container}>
-        <AddTodo onSubmit={addTodo} />
-        <FlatList data={todos}
-                  renderItem={({ item }) => (
-                    <Todo todo={item} key={item.id}
-                          onRemove={removeTodo}/>)} />
-    {/*    <ScrollView>
-          {
-            todos.map(td => <Todo todo={td} key={td.id} />)
-          }
-        </ScrollView>*/}
+        { content }
       </View>
     </View>
   );
