@@ -1,4 +1,4 @@
-import { Button, View, StyleSheet, TextInput } from 'react-native';
+import { Button, View, StyleSheet, TextInput, Alert } from 'react-native';
 import React, { useState } from 'react';
 
 export const AddTodo = ({ onSubmit }) => {
@@ -10,16 +10,18 @@ export const AddTodo = ({ onSubmit }) => {
       onSubmit(value);
       setValue('');
     } else {
-      //error
+      Alert.alert('Todo title is not be empty');
     }
   };
 
   return (
     <View style={styles.block}>
       <TextInput style={styles.input}
-                 onChangeText={setValue }
+                 onChangeText={setValue}
                  value={value}
-                 placeholder="Type ur text..." />
+                 placeholder="Type ur text..."
+                 autoCorrect={false}
+                 autoCapitalize="none"/>
       <Button title="Add" style={styles.button} onPress={pressHandler} />
     </View>
   );
