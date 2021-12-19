@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 import React, { useState } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { Alert, StyleSheet, View } from 'react-native'
 import { Navbar } from './src/components/Navbar'
 import { MainScreen } from './src/screens/MainScreen'
 import { TodoScreen } from './src/screens/TodoScreen'
@@ -22,7 +22,26 @@ const App = () => {
   }
 
   const removeTodo = (id) => {
-    setTodos((prev) => prev.filter(td => td.id !== id))
+    const todo = todos.find(td => td.id === id)
+    Alert.alert(
+      'Element removing',
+      `Are you sure to remove "${todo.title}"?`,
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel'
+        },
+        {
+          text: 'Remove',
+          style: 'destructive',
+          onPress: () => {
+            setTodoId(null)
+            setTodos(prev => prev.filter(todo => todo.id !== id))
+          }
+        }
+      ],
+      { cancelable: false }
+    )
   }
 
   let content = <MainScreen todos={todos} addTodo={addTodo}
@@ -31,7 +50,9 @@ const App = () => {
 
   if (todoId) {
     const selectedTodo = todos.find(td => td.id === todoId)
-    content = <TodoScreen goBack={() => setTodoId(null)} todo={selectedTodo} />
+    content = <TodoScreen goBack={() => setTodoId(null)}
+                          todo={selectedTodo}
+                          removeTodo={removeTodo}/>
   }
 
   return (
