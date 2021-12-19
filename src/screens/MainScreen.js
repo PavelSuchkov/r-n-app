@@ -4,7 +4,7 @@ import { AddTodo } from '../components/AddTodo';
 import { Todo } from '../components/Todo';
 
 
-export const MainScreen = ({todos, addTodo, removeTodo}) => {
+export const MainScreen = ({todos, addTodo, removeTodo, openTodo}) => {
   return(
     <View>
     <AddTodo onSubmit={addTodo} />
@@ -12,7 +12,8 @@ export const MainScreen = ({todos, addTodo, removeTodo}) => {
               renderItem={({ item }) => (<Todo
                                           todo={item}
                                           key={item.id}
-                                          onRemove={removeTodo}/>)} />
+                                          onRemove={removeTodo}
+                                          onOpen={openTodo}/>)} />
   </View>
   )
 }
