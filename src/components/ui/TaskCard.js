@@ -8,8 +8,6 @@ export const TaskCard = ({children, style}) => (
 const styles = StyleSheet.create({
   default: {
     padding: 20,
-    // borderWidth: 1,
-    // borderColor: 'green',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',

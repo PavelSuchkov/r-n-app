@@ -1,15 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button, View, StyleSheet, TextInput, Text } from 'react-native'
 import { THEME } from '../../theme'
 import { TaskCard } from '../components/ui/TaskCard'
+import { EditModal } from '../components/EditModal'
 
 
-export const TodoScreen = ({ todo, goBack, removeTodo }) => {
+export const TodoScreen = ({ todo, goBack, removeTodo, onSave }) => {
+
+  const [isVisible, setIsVisible] = useState(false)
+
+  const saveHandler = (title) => {
+    onSave(todo.id, title)
+    setIsVisible(false)
+  }
+
   return <View>
-
     <TaskCard style={styles.card}>
       <Text style={styles.title}>{todo.title}</Text>
-      <Button title="Edit" />
+      <Button title="Edit" onPress={() => setIsVisible(true)}/>
     </TaskCard>
     <View style={styles.buttonBlock}>
       <View style={styles.button}>
@@ -23,7 +31,10 @@ export const TodoScreen = ({ todo, goBack, removeTodo }) => {
                 onPress={() => {removeTodo(todo.id)}} />
       </View>
     </View>
-
+    <EditModal value={todo.title}
+               visible={isVisible}
+               onSave={saveHandler}
+               onCancel={() => setIsVisible(false)} />
   </View>
 }
 
@@ -37,6 +48,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
+    fontFamily: 'Roboto-Bold'
   },
   card: {
     marginBottom: 20,

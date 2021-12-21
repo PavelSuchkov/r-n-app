@@ -7,14 +7,24 @@
  */
 import React, { useState } from 'react'
 import { Alert, StyleSheet, View } from 'react-native'
+// import * as Font from 'expo-font'  // ask about alternatives
+
 import { Navbar } from './src/components/Navbar'
 import { MainScreen } from './src/screens/MainScreen'
 import { TodoScreen } from './src/screens/TodoScreen'
 
+
+// const load = async () => {
+//   await Font.loadAsync({
+//     'roboto-regular': require('/src/assets/fonts/Roboto/Roboto-Regular.ttf'),
+//     'roboto-bold': require('/src/assets/fonts/Roboto/Roboto-Bold.ttf ')
+//   })
+// }
+
 const App = () => {
 
-  const [todos, setTodos] = useState([{ id: '1', title: 'testing task' }])
-  const [todoId, setTodoId] = useState('1')
+  const [todos, setTodos] = useState([])
+  const [todoId, setTodoId] = useState(null)
 
   const addTodo = (title) => {
     setTodos((prev) => [{ id: Date.now().toString(), title }, ...prev],
@@ -44,6 +54,12 @@ const App = () => {
     )
   }
 
+  const updateTodo = (id, title) => {
+    debugger
+    setTodos(old => old.map(td => td.id === id ? { ...td, title } : td ))
+
+  }
+
   let content = <MainScreen todos={todos} addTodo={addTodo}
                             removeTodo={removeTodo}
                             openTodo={setTodoId} />
@@ -52,7 +68,8 @@ const App = () => {
     const selectedTodo = todos.find(td => td.id === todoId)
     content = <TodoScreen goBack={() => setTodoId(null)}
                           todo={selectedTodo}
-                          removeTodo={removeTodo}/>
+                          removeTodo={removeTodo}
+                          onSave={updateTodo}/>
   }
 
   return (

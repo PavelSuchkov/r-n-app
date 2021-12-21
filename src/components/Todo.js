@@ -1,19 +1,21 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useState } from 'react'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+// import robotoRegular  from '/src/assets/fonts/Roboto'
 
 export const Todo = ({ todo, onRemove, onOpen }) => {
 
   return (
     <TouchableOpacity activeOpacity={0.5}
-                      onPress={() => {onOpen(todo.id)}}
-                      // onPress={() => console.warn(todo.id)}
+                      onPress={() => {
+                        onOpen(todo.id)
+                      }}
                       onLongPress={onRemove.bind(this, todo.id)}>
       <View style={styles.todo}>
-        <Text>{todo.title}</Text>
+        <Text style={styles.text}>{todo.title}</Text>
       </View>
     </TouchableOpacity>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   todo: {
@@ -26,4 +28,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     fontSize: 12,
   },
-});
+  text: {
+    fontFamily: 'Roboto-Bold'
+  }
+})
