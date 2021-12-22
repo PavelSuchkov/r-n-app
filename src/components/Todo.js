@@ -29,6 +29,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   text: {
-    fontFamily: 'Roboto-Bold'
+    // fontFamily: 'Roboto-Bold'
   }
 })

@@ -48,7 +48,8 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontFamily: 'Roboto-Bold'
+    fontFamily: THEME.FONTS.normal,
+    // fontWeight: '700'
   },
   card: {
     marginBottom: 20,
