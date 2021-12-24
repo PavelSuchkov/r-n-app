@@ -5,8 +5,9 @@
  * @format
  * @flow strict-local
  */
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Alert, StyleSheet, View } from 'react-native'
+import SplashScreen from 'react-native-splash-screen'
 // import * as Font from 'expo-font'  // ask about alternatives
 
 import { Navbar } from './src/components/Navbar'
@@ -22,6 +23,11 @@ import { TodoScreen } from './src/screens/TodoScreen'
 // }
 
 const App = () => {
+
+  useEffect(() => {
+    (Platform.OS === 'android') &&
+      SplashScreen.hide()
+  }, [])
 
   const [todos, setTodos] = useState([])
   const [todoId, setTodoId] = useState(null)

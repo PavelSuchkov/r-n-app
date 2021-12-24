@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { Button, View, StyleSheet, TextInput, Text } from 'react-native'
+import SplashScreen from 'react-native-splash-screen'
+
 import { THEME } from '../../theme'
 import { TaskCard } from '../components/ui/TaskCard'
 import { EditModal } from '../components/EditModal'
@@ -48,7 +50,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontFamily: THEME.FONTS.normal,
+    fontFamily: THEME.FONTS.ITALIC,
     // fontWeight: '700'
   },
   card: {

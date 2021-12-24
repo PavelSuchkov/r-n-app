@@ -5,7 +5,8 @@ export const THEME = {
   MAIN_COLOR: '#3949ab',
 
   FONTS: {
-    normal: 'Roboto-Regular',
-    bold: 'Roboto-Bold'
+    NORMAL: 'Roboto-Regular',
+    BOLD: 'Roboto-Bold',
+    ITALIC: 'Roboto-Italic'
   }
 }
