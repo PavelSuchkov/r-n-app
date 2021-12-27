@@ -1,17 +1,16 @@
 import React, { useState } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { AppText } from './ui/AppText'
 // import robotoRegular  from '/src/assets/fonts/Roboto'
 
 export const Todo = ({ todo, onRemove, onOpen }) => {
 
   return (
     <TouchableOpacity activeOpacity={0.5}
-                      onPress={() => {
-                        onOpen(todo.id)
-                      }}
+                      onPress={() => {onOpen(todo.id)}}
                       onLongPress={onRemove.bind(this, todo.id)}>
       <View style={styles.todo}>
-        <Text style={styles.text}>{todo.title}</Text>
+        <AppText style={styles.text}>{todo.title}</AppText>
       </View>
     </TouchableOpacity>
   )
@@ -29,6 +28,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   text: {
+    fontSize: 18
     // fontFamily: 'Roboto-Bold'
   }
 })

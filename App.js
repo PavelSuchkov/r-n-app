@@ -1,14 +1,7 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
+
 import React, { useEffect, useState } from 'react'
 import { Alert, StyleSheet, View } from 'react-native'
 import SplashScreen from 'react-native-splash-screen'
-// import * as Font from 'expo-font'  // ask about alternatives
 
 import { Navbar } from './src/components/Navbar'
 import { MainScreen } from './src/screens/MainScreen'
@@ -61,7 +54,6 @@ const App = () => {
   }
 
   const updateTodo = (id, title) => {
-    debugger
     setTodos(old => old.map(td => td.id === id ? { ...td, title } : td ))
 
   }

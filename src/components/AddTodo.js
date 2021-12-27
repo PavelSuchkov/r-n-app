@@ -1,5 +1,7 @@
-import { Button, View, StyleSheet, TextInput, Alert } from 'react-native'
 import React, { useState } from 'react'
+import { Button, View, StyleSheet, TextInput, Alert } from 'react-native'
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
+
 import { THEME } from '../../theme'
 
 export const AddTodo = ({ onSubmit }) => {
@@ -23,7 +25,13 @@ export const AddTodo = ({ onSubmit }) => {
                  placeholder="Type ur text..."
                  autoCorrect={false}
                  autoCapitalize="none" />
-      <Button title="Add" style={styles.button} onPress={pressHandler} />
+      <FontAwesome.Button name='plus-circle'
+                          className="button"
+                          onPress={pressHandler}
+                          style={styles.button}>
+        Add
+      </FontAwesome.Button>
+        {/*<Button title="Add" style={styles.button} />*/}
     </View>
   )
 }
@@ -41,8 +49,10 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     padding: 10,
     borderColor: THEME.MAIN_COLOR,
+    fontSize: 18
   },
   button: {
+    backgroundColor: THEME.GRAY_COLOR,
     borderWidth: 1,
     borderColor: THEME.MAIN_COLOR,
   },

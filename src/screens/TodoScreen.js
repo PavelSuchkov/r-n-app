@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
-import { Button, View, StyleSheet, TextInput, Text } from 'react-native'
-import SplashScreen from 'react-native-splash-screen'
+import { StyleSheet, View } from 'react-native'
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import AntDesign from 'react-native-vector-icons/AntDesign'
 
 import { THEME } from '../../theme'
 import { TaskCard } from '../components/ui/TaskCard'
 import { EditModal } from '../components/EditModal'
+import { AppTextBold } from '../components/ui/AppTextBold'
+import { AppButton } from '../components/ui/AppButton'
 
 
 export const TodoScreen = ({ todo, goBack, removeTodo, onSave }) => {
@@ -16,28 +19,35 @@ export const TodoScreen = ({ todo, goBack, removeTodo, onSave }) => {
     setIsVisible(false)
   }
 
-  return <View>
+  return (
+    <View>
     <TaskCard style={styles.card}>
-      <Text style={styles.title}>{todo.title}</Text>
-      <Button title="Edit" onPress={() => setIsVisible(true)}/>
+      <AppTextBold style={styles.title}>{todo.title}</AppTextBold>
+      <AppButton title="Edit" onPress={() => setIsVisible(true)}>
+        <FontAwesome name="edit" size={20} />
+      </AppButton>
     </TaskCard>
     <View style={styles.buttonBlock}>
       <View style={styles.button}>
-        <Button title="Back"
-                color={THEME.GRAY_COLOR}
-                onPress={() => {goBack()}} />
+        <AppButton
+          color={THEME.GRAY_COLOR}
+          onPress={() => {goBack()}}>
+          <AntDesign name='back' size={20} color='#fff'/>
+        </AppButton>
       </View>
       <View style={styles.button}>
-        <Button title="Delete "
-                color={THEME.DANGER_COLOR}
-                onPress={() => {removeTodo(todo.id)}} />
+        <AppButton
+          color={THEME.DANGER_COLOR}
+          onPress={() => {removeTodo(todo.id)}}>
+          <AntDesign name='delete' size={20}/>
+        </AppButton>
       </View>
     </View>
     <EditModal value={todo.title}
                visible={isVisible}
                onSave={saveHandler}
                onCancel={() => setIsVisible(false)} />
-  </View>
+  </View>)
 }
 
 const styles = StyleSheet.create({
@@ -50,8 +60,8 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontFamily: THEME.FONTS.ITALIC,
-    // fontWeight: '700'
+    // fontFamily: THEME.FONTS.NORMAL,
+
   },
   card: {
     marginBottom: 20,
