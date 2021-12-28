@@ -1,11 +1,12 @@
 
 import React, { useEffect, useState } from 'react'
-import { Alert, StyleSheet, View } from 'react-native'
+import { Alert, StyleSheet, View, Platform } from 'react-native'
 import SplashScreen from 'react-native-splash-screen'
 
 import { Navbar } from './src/components/Navbar'
 import { MainScreen } from './src/screens/MainScreen'
 import { TodoScreen } from './src/screens/TodoScreen'
+import { THEME } from './theme'
 
 
 // const load = async () => {
@@ -82,7 +83,7 @@ const App = () => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 30,
+    paddingHorizontal: THEME.PADDING_HORIZONTAL,
     paddingVertical: 20,
   },
 })

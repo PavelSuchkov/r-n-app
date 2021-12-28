@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { Dimensions, StyleSheet, View } from 'react-native'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   button: {
-    width: '40%',
+    width: Dimensions.get('window').width * 0.3  ,
   },
   title: {
     fontSize: 24,

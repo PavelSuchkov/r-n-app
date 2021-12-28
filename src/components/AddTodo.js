@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, View, StyleSheet, TextInput, Alert } from 'react-native'
+import { Alert, StyleSheet, TextInput, View, Keyboard } from 'react-native'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
 import { THEME } from '../../theme'
@@ -12,6 +12,7 @@ export const AddTodo = ({ onSubmit }) => {
     if (value.trim()) {
       onSubmit(value)
       setValue('')
+      Keyboard.dismiss()
     } else {
       Alert.alert('Todo title is not be empty')
     }

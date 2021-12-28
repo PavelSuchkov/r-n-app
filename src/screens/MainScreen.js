@@ -1,18 +1,40 @@
-import React from 'react'
-import { FlatList, Image, StyleSheet, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { Dimensions, FlatList, Image, StyleSheet, View } from 'react-native'
 import { AddTodo } from '../components/AddTodo'
 import { Todo } from '../components/Todo'
+import { THEME } from '../../theme'
 
 
 export const MainScreen = ({ todos, addTodo, removeTodo, openTodo }) => {
 
-  let content = <FlatList data={todos}
-                          renderItem={({ item }) => (
-                            <Todo
-                            todo={item}
-                            key={item.id}
-                            onRemove={removeTodo}
-                            onOpen={openTodo} />)} />
+  const [deviceWidth, setDeviceWidth] = useState(
+    Dimensions.get('window').width - THEME.PADDING_HORIZONTAL * 2,
+  )
+
+  useEffect(() => {
+    const update = () => {
+      const width =
+        Dimensions.get('window').width - THEME.PADDING_HORIZONTAL * 2
+      setDeviceWidth(width)
+    }
+
+    Dimensions.addEventListener('change', update)
+
+    return () => {
+      Dimensions.removeEventListener('change', update)   //????
+    }
+  })
+
+
+  let content = <View style={{ deviceWidth }}>
+    <FlatList data={todos}
+              renderItem={({ item }) => (
+                <Todo
+                  todo={item}
+                  key={item.id}
+                  onRemove={removeTodo}
+                  onOpen={openTodo} />)} />
+  </View>
 
   if (todos.length === 0) {
     content = (
@@ -39,8 +61,8 @@ const styles = StyleSheet.create({
     height: 300,
   },
   img: {
-    width: "100%",
+    width: '100%',
     height: '100%',
-    resizeMode: 'contain'
-  }
+    resizeMode: 'contain',
+  },
 })

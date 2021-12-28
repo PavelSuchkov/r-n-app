@@ -1,10 +1,13 @@
-import { Text, View, StyleSheet } from 'react-native'
+import { Text, View, StyleSheet, Platform } from 'react-native'
 import React from 'react'
 import {THEME} from '../../theme'
 
 export const Navbar = ({ title }) => {
   return (
-    <View style={styles.navbar}>
+    <View style={{ ...styles.navbar, ...Platform.select({
+        ios: styles.navbarIOS,
+        android: styles.navbarAndroid
+      }) }}>
       <Text style={styles.text}>{title}</Text>
     </View>
   )
@@ -12,14 +15,20 @@ export const Navbar = ({ title }) => {
 
 const styles = StyleSheet.create({
   navbar: {
-    height: 100,
+    height: 70,
     alignItems: 'center',
     justifyContent: 'flex-end',
-    backgroundColor: THEME.MAIN_COLOR,
     paddingBottom: 7
   },
+  navbarAndroid: {
+    backgroundColor: THEME.MAIN_COLOR,
+  },
+  navbarIOS: {
+    borderBottomColor: THEME.MAIN_COLOR,
+    borderBottomWidth: 1
+  },
   text: {
-    color: 'white',
+    color: Platform.OS === 'ios' ? THEME.MAIN_COLOR : '#fff',
     fontSize: 20,
   },
 })
