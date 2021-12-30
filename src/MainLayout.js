@@ -9,43 +9,41 @@ import { TodoContext } from './context/todo/todoContext'
 
 export const MainLayout = () => {
 
-  const todoContext = useContext(TodoContext)
-  const [todos, setTodos] = useState(todoContext.todos )
+  const {todos, addTodo, removeTodo, updateTodo } = useContext(TodoContext)
+  // const [todos, setTodos] = useState(todoContext.todos )
   const [todoId, setTodoId] = useState(null)
 
-  const addTodo = (title) => {
-    setTodos((prev) => [{ id: Date.now().toString(), title }, ...prev],
-    )
-  }
+  // const addTodo = (title) => todoContext.addTodo(title)
 
-  const removeTodo = (id) => {
-    const todo = todos.find(td => td.id === id)
-    Alert.alert(
-      'Element removing',
-      `Are you sure to remove "${todo.title}"?`,
-      [
-        {
-          text: 'Cancel',
-          style: 'cancel',
-        },
-        {
-          text: 'Remove',
-          style: 'destructive',
-          onPress: () => {
-            setTodoId(null)
-            setTodos(prev => prev.filter(todo => todo.id !== id))
-          },
-        },
-      ],
-      { cancelable: false },
-    )
-  }
+  // const removeTodo = (id) => {
+  //   const todo = todos.find(td => td.id === id)
+  //   Alert.alert(
+  //     'Element removing',
+  //     `Are you sure to remove "${todo.title}"?`,
+  //     [
+  //       {
+  //         text: 'Cancel',
+  //         style: 'cancel',
+  //       },
+  //       {
+  //         text: 'Remove',
+  //         style: 'destructive',
+  //         onPress: () => {
+  //           setTodoId(null)
+  //           setTodos(prev => prev.filter(todo => todo.id !== id))
+  //         },
+  //       },
+  //     ],
+  //     { cancelable: false },
+  //   )
+  // }
 
-  const updateTodo = (id, title) => {
-    setTodos(old => old.map(td => td.id === id ? { ...td, title } : td))
-  }
+  // const updateTodo = (id, title) => {
+  //   setTodos(old => old.map(td => td.id === id ? { ...td, title } : td))
+  // }
 
-  let content = <MainScreen todos={todos} addTodo={addTodo}
+  let content = <MainScreen todos={todos}
+                            addTodo={addTodo}
                             removeTodo={removeTodo}
                             openTodo={setTodoId} />
 
