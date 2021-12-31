@@ -3,6 +3,7 @@ import { Platform } from 'react-native'
 import SplashScreen from 'react-native-splash-screen'
 import { MainLayout } from './src/MainLayout'
 import { TodoState } from './src/context/todo/TodoState'
+import { ScreenState } from './src/context/screen/ScreenState'
 
 
 const App = () => {
@@ -13,9 +14,11 @@ const App = () => {
   }, [])
 
   return (
-    <TodoState>
-      <MainLayout/>
-    </TodoState>
+    <ScreenState>
+      <TodoState>
+        <MainLayout />
+      </TodoState>
+    </ScreenState>
   )
 }
 
