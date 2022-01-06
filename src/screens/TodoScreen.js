@@ -21,8 +21,8 @@ export const TodoScreen = () => {
 
   const todo = todos.find(td => td.id === todoId)
 
-  const saveHandler = (title) => {
-    updateTodo(todo.id, title)
+  const saveHandler = async (title) => {
+    await updateTodo(todo.id, title)
     setIsVisible(false)
   }
 
