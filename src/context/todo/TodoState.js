@@ -13,6 +13,7 @@ import {
 } from '../types'
 import { ScreenContext } from '../screen/screenContext'
 import { Alert } from 'react-native'
+import {Http} from '../../http'
 
 
 export const TodoState = ({ children }) => {
@@ -28,31 +29,25 @@ export const TodoState = ({ children }) => {
   const [state, dispatch] = useReducer(todoReducer, initialState)
 
   const addTodo = async (title) => {
-    const res = await fetch(`${ROOT_URL}.json`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application.json' },
-      body: JSON.stringify({ title }),
-    })
-    const data = await res.json()
-    dispatch({ type: ADD_TODO, title, id: data.name })
+    clearError()
+    try {
+      const data = await Http.post(`${ROOT_URL}.json`, { title })
+      dispatch({ type: ADD_TODO, title, id: data.name })
+    } catch (e) {
+      showError('Something wrong, try again')
+    }
   }
 
   const fetchTodos = async () => {
     showLoader()
     clearError()
     try {
-      const res = await fetch(
-        `${ROOT_URL}.json`, {
-          method: 'GET',
-          headers: { 'Content-Type': 'application.json' },
-        })
-      const data = await res.json()
+      const data = await Http.get(`${ROOT_URL}.json`)
       const todos = Object.keys(data).map(key => ({ ...data[key], id: key }))
       dispatch({ type: FETCH_TODOS, todos })
     }
     catch (e) {
       showError('Something wrong, try again ')
-      console.log(e)
     }
     finally {
       hideLoader()
@@ -76,19 +71,14 @@ export const TodoState = ({ children }) => {
             clearError()
             changeScreen(null)
             try {
-              await fetch(`${ROOT_URL}/${id}.json`, {
-                method: 'DELETE',
-                headers: { 'Content-Type': 'application.json' }
-              })
+              await Http.delete(`${ROOT_URL}/${id}.json`)
               dispatch({ type: REMOVE_TODO, id })
-
             }
             catch (e) {
               showError('Something wrong, try again ')
-              console.log(e)
             }
-          },
-        },
+          }
+        }
       ],
       { cancelable: false },
     )
@@ -98,16 +88,11 @@ export const TodoState = ({ children }) => {
     showLoader()
     clearError()
     try {
-      await fetch(`${ROOT_URL}/${id}.json`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application.json' },
-        body: JSON.stringify({ title }),
-      })
+      await Http.patch(`${ROOT_URL}/${id}.json`, {title})
       dispatch({ type: UPDATE_TODO, id, title })
     }
     catch (e) {
       showError('Something wrong, try again ')
-      console.log(e)
     }
     finally {
       hideLoader()

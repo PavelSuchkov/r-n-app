@@ -68,7 +68,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     // fontFamily: THEME.FONTS.NORMAL,
-
   },
   card: {
     marginBottom: 20,
